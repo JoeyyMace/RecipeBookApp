@@ -18,20 +18,23 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.painterResource
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.size
 import androidx.compose.ui.draw.clip
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Composable
 fun TwoColumnCardGrid(items: List<Pair<String, Int>>) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2), //2 columns
+        columns = GridCells.Fixed(2), // 2 columns
         modifier = Modifier.fillMaxSize(),
-        contentPadding = PaddingValues(8.dp),
+        contentPadding = PaddingValues(32.dp), // Increased padding around the grid
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
@@ -45,31 +48,38 @@ fun TwoColumnCardGrid(items: List<Pair<String, Int>>) {
 fun CardItem(text: String, imageRes: Int) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp),
-        elevation = CardDefaults.cardElevation(4.dp),
-        shape = RoundedCornerShape(12.dp)
+            .width(400.dp)  // Set a specific width
+            .height(200.dp) // Set a specific height
+            .padding(4.dp) // Padding remains the same
+            .border(
+                width = 2.dp, // Border width
+                color = Color.Gray, // Border color
+                shape = RoundedCornerShape(8.dp) // Border with rounded corners
+            ),
+        elevation = CardDefaults.cardElevation(12.dp),
+        shape = RoundedCornerShape(8.dp) // Rounded corners for the card
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(12.dp), // Increased internal padding
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image (
+            Image(
                 painter = painterResource(id = imageRes),
                 contentDescription = text,
                 modifier = Modifier
-                    .size(64.dp)
-                    .clip(RoundedCornerShape(8.dp)),
+                    .size(64.dp) // Larger image size
+                    .clip(RoundedCornerShape(12.dp)) // More rounded image corners
             )
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.width(4.dp)) // Increased horizontal space between image and text
             Text(
                 text = text,
-                fontSize = 16.sp,
+                fontSize = 8.sp, // Larger font size
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.weight(1f)
             )
         }
     }
 }
+
