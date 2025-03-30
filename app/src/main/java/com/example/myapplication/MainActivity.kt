@@ -9,10 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -20,7 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import com.example.myapplication.ui.card.TwoColumnCardGrid
 import com.example.myapplication.ui.SearchBar.SearchBar
-import com.example.myapplication.ui.groceryListButton.GroceryListButton
+import com.example.myapplication.ui.nav.NavigationDrawerExample
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,34 +45,25 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomeScreen(navController: NavController) {
     MyApplicationTheme {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            topBar = {
-                // Add SearchBar to the topBar
-                SearchBar()
-            }
-        ) { innerPadding ->
-            // Apply innerPadding to avoid content overlap
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(innerPadding)
-            ) {
-                // CardPreview content
-                CardPreview(modifier = Modifier.fillMaxSize())
-
-                // GroceryListButton positioned at the bottom
-                GroceryListButton(
-                    onClick = { /* Handle click */ },
-                    navController = navController,
+        NavigationDrawerExample { // Wrap the screen inside the navigation drawer
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                topBar = {
+                    SearchBar()
+                }
+            ) { innerPadding ->
+                Box(
                     modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(16.dp) // Optional padding for spacing
-                )
+                        .fillMaxSize()
+                        .padding(innerPadding)
+                ) {
+                    CardPreview(modifier = Modifier.fillMaxSize())
+                }
             }
         }
     }
 }
+
 
 @Composable
 fun GroceryList() {
@@ -105,26 +94,6 @@ fun PreviewMainScreen() {
     HomeScreen(navController = rememberNavController()) // Preview everything put together
 }
 
-
-@Preview
-@Composable
-fun PreviewButton() {
-    // Mock NavController for preview purposes
-    val navController = rememberNavController()
-
-    Box(
-        modifier = Modifier
-            .fillMaxSize() // Ensure the Box takes up the entire available space
-    ) {
-        GroceryListButton(
-            onClick = {},
-            navController = navController,
-            modifier = Modifier
-                .align(Alignment.BottomCenter) // Align the button at the bottom center
-                .padding(16.dp) // Padding around the button
-        )
-    }
-}
 
 
 
