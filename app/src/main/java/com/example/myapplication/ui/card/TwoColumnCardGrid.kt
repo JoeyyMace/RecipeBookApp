@@ -27,12 +27,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import com.example.myapplication.R
 
 @Composable
 fun TwoColumnCardGrid(items: List<Pair<String, Int>>) {
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2), // 2 columns
+        columns = GridCells.Fixed(1), // 2 columns
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(32.dp), // Increased padding around the grid
         horizontalArrangement = Arrangement.SpaceEvenly,
@@ -81,5 +83,23 @@ fun CardItem(text: String, imageRes: Int) {
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun CardPreview(modifier: Modifier = Modifier) {
+    val items: List<Pair<String, Int>> = listOf(
+        "Item 1" to R.drawable.sample_photo,
+        "Item 2" to R.drawable.sample_photo,
+        "Item 3" to R.drawable.sample_photo,
+        "Item 4" to R.drawable.sample_photo,
+        "Item 5" to R.drawable.sample_photo,
+        "Item 6" to R.drawable.sample_photo,
+        "Item 7" to R.drawable.sample_photo,
+        "Item 8" to R.drawable.sample_photo,
+        "Item 9" to R.drawable.sample_photo,
+        "Item 10" to R.drawable.sample_photo,
+    )
+    TwoColumnCardGrid(items)
 }
 
